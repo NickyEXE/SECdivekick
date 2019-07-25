@@ -7,6 +7,7 @@ class Avatar{
         this.direction = direction
         this.xSpeed = 0
         this.ySpeed = 0
+        this.score = 0
         this.charState = "ground"
         this.constructor.all.push(this)
     }
@@ -75,11 +76,14 @@ class Avatar{
     static initializeAvatars(canvas){
         this.canvas = canvas
         this.all = []
+        this.lastWinner = ""
         this.avatarWidth = 50
         this.avatarHeight = 100
         this.jumpInitialVelocity = -3.2
         this.gravity = 0.01
         this.initialAvatarY = canvas.height - Avatar.avatarHeight
+        this.round = 1
+        this.justWon = false
     }
 
     static executeCharacterMovement(){
@@ -105,8 +109,33 @@ class Avatar{
 
     static stateCheck(){
         if((Math.abs(Avatar.all[0].x - Avatar.all[1].x) <= this.avatarWidth) && (Math.abs(Avatar.all[0].y - Avatar.all[1].y) <= this.avatarHeight)){
-            console.log(Avatar.all[0].y > Avatar.all[1].y ? `${Avatar.all[0].name} is the winner` : `${Avatar.all[1].name} is the winner` )
+            Avatar.all[0].y < Avatar.all[1].y ? Avatar.win(Avatar.all[0]) : Avatar.win(Avatar.all[1])
         }
+    }
+
+    static win(avatar){
+        if (!this.justWon){
+            console.log("winner")
+            avatar.score += 1
+            this.lastWinner = avatar.name
+            this.justWon = true
+            this.resetGame()
+        }
+        // this.resetGame()
+    }
+
+    static resetGame(){
+        setTimeout(() => {
+        this.justWon = false
+        this.all[0].x = this.avatarWidth
+        this.all.forEach(avatar => {
+            avatar.xSpeed = 0
+            avatar.ySpeed = 0
+            avatar.y = this.initialAvatarY
+        })
+        this.all[1].x = this.canvas.width - (2*this.avatarWidth)
+        },1000)
+        
     }
 
 
