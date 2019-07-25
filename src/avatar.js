@@ -27,10 +27,15 @@ class Avatar{
     }
 
     imageIdWithDirection(){
-        if (this.direction === 1){
-            return `${this.imageId}-right-facing`}
+        if (!this.knockedOut()){
+            return `${this.imageId}-${this.direction===1 ? "right": "left"}-facing`}
         else {
-            return `${this.imageId}-left-facing`}
+            return `${this.imageId}-${this.direction === 1 ? "left" : "right"}-kod`
+        }
+    }
+
+    knockedOut(){
+        return !!(this.constructor.justWon && this.constructor.lastWinner !== this.name)
     }
 
     checkForWallHits(){
@@ -82,8 +87,11 @@ class Avatar{
         this.jumpInitialVelocity = -3.2
         this.gravity = 0.01
         this.initialAvatarY = canvas.height - Avatar.avatarHeight
-        this.round = 1
         this.justWon = false
+    }
+
+    static round(){
+        return this.all[0].score + this.all[1].score + 1
     }
 
     static executeCharacterMovement(){
@@ -93,17 +101,23 @@ class Avatar{
     }
 
     static directionCheck(){
-        if (((this.all[0].charState ==="ground") && (this.all[0].x > this.all[1].x)) && this.all[0].direction === 1){
-            this.all[0].direction = -1
+        // This should be refactored as an instance method
+        if (!this.all[0].knockedOut()){
+            if (((this.all[0].charState ==="ground") && (this.all[0].x > this.all[1].x)) && this.all[0].direction === 1){
+                this.all[0].direction = -1
+            }
+            if (((this.all[0].charState ==="ground") && (this.all[0].x < this.all[1].x)) && this.all[0].direction === -1) {
+                this.all[0].direction = 1
+            }
         }
-        if (((this.all[1].charState ==="ground") && (this.all[1].x > this.all[0].x)) && this.all[1].direction === 1){
-            this.all[1].direction = -1
-        }
-        if (((this.all[0].charState ==="ground") && (this.all[0].x < this.all[1].x)) && this.all[0].direction === -1) {
-            this.all[0].direction = 1
-        }
-        if (((this.all[1].charState ==="ground") && (this.all[1].x < this.all[0].x))&& (this.all[1].direction === -1)) {
-            this.all[1].direction = 1
+
+        if (!this.all[1].knockedOut()){
+            if (((this.all[1].charState ==="ground") && (this.all[1].x > this.all[0].x)) && this.all[1].direction === 1){
+                this.all[1].direction = -1
+            }
+            if (((this.all[1].charState ==="ground") && (this.all[1].x < this.all[0].x))&& (this.all[1].direction === -1)) {
+                this.all[1].direction = 1
+            }
         }
     }
 
