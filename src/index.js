@@ -36,26 +36,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderer()
 
-    function handleKeyPress(e){
-        switch (e.key.toLowerCase()){
-            case "a":
-                gracie.dive()
-                break;
-            case "s":
-                gracie.kick()
-                break;
-            case "k":
-                nicky.dive()
-                break;
-            case "l":
-                nicky.kick()
-                break;
-            default:
-                break;
+    const pressedKeys = {
+        "a": {pressed: false, 
+            func: () => gracie.dive()},
+        "s": {pressed: false, 
+            func: () => gracie.kick()},
+        "k": {pressed: false, 
+            func: () => nicky.dive()},
+        "l": {pressed: false, 
+            func: () => nicky.kick()}
+        }
+
+
+    function handleKeyDown(e){
+        console.log(pressedKeys)
+        if (pressedKeys[e.key]){
+        pressedKeys[e.key].pressed = true
+        // debugger
+        // pressedKeys.forEach(key => key.pressed && key.func())}
+        Object.keys(pressedKeys).forEach(key => pressedKeys[key].pressed ===true && pressedKeys[key].func())}
+    }
+
+    function handleKeyUp(e){
+        if (pressedKeys[e.key]){
+        pressedKeys[e.key].pressed = false
+        // pressedKeys.forEach(key => key.pressed && key.func())}
+        Object.keys(pressedKeys).forEach(key => pressedKeys[key].pressed ===true && pressedKeys[key].func())
         }
     }
 
-    document.addEventListener("keydown", handleKeyPress)
+    // function handleKeyDown(e){
+    //     switch (e.key.toLowerCase()){
+    //         case "a":
+    //             gracie.dive()
+    //             break;
+    //         case "s":
+    //             gracie.kick()
+    //             break;
+    //         case "k":
+    //             nicky.dive()
+    //             break;
+    //         case "l":
+    //             nicky.kick()
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    // }
+
+    document.addEventListener("keydown", handleKeyDown)
+    document.addEventListener("keyup", handleKeyUp)
     
     setInterval(renderer, 1)
     
