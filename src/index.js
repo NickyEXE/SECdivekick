@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     //     canvas.height = 800
 
     function renderer(){
+        console.log(Avatar.kickYSpeed)
         Avatar.executeCharacterMovement()
         const canvas = createCanvas()
         const ctx = canvas.getContext('2d');
@@ -49,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     function handleKeyDown(e){
-        console.log(pressedKeys)
         if (pressedKeys[e.key]){
         pressedKeys[e.key].pressed = true
         // debugger
@@ -64,10 +64,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
+    function handleSlider(e){
+        slidapter[e.target.id](e.target.value)
+    }
+
     document.addEventListener("keydown", handleKeyDown)
     document.addEventListener("keyup", handleKeyUp)
+    document.getElementById("sliders").addEventListener("change", handleSlider)
     
-    setInterval(renderer, 1)
+    setInterval(renderer, 2)
     
 
 })

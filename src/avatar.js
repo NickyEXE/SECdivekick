@@ -56,15 +56,15 @@ class Avatar{
     }
 
     kick(){
-        if (this.charState !== "ground"){
+        if (this.charState !== "ground" && this.charState !== "kick"){
             this.charState = "kick"
-            this.xSpeed = 1.5
-            this.ySpeed = 1
+            this.xSpeed = this.constructor.kickXSpeed
+            this.ySpeed = this.constructor.kickYSpeed
         }
         // kickback
         if (this.charState === "ground"){
-            this.ySpeed = -2;
-            this.xSpeed = -1
+            this.ySpeed = this.constructor.kickbackYSpeed
+            this.xSpeed = this.constructor.kickbackXSpeed
             this.charState = "dive"
         }
     }
@@ -84,8 +84,12 @@ class Avatar{
         this.lastWinner = ""
         this.avatarWidth = 50
         this.avatarHeight = 100
-        this.jumpInitialVelocity = -3.2
-        this.gravity = 0.01
+        this.jumpInitialVelocity = -5
+        this.kickYSpeed = 3
+        this.kickXSpeed = 2.8
+        this.kickbackYSpeed = -3
+        this.kickbackXSpeed = -1.5
+        this.gravity = 0.02
         this.initialAvatarY = canvas.height - Avatar.avatarHeight
         this.justWon = false
     }
@@ -129,7 +133,6 @@ class Avatar{
 
     static win(avatar){
         if (!this.justWon){
-            console.log("winner")
             avatar.score += 1
             this.lastWinner = avatar.name
             this.justWon = true

@@ -1,6 +1,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="./src/index.css" />
 </head>
 
 <body>
@@ -14,6 +15,44 @@
     <img id="gracie-right-kod" width="1" height="1" src="./assets/gracie-right-kod.png" alt="Gracie Facing Right">
     <img id="nicky-left-kod" width="1" height="1" src="./assets/nicky-left-kod.jpeg" alt="nicky Facing Left">
     <img id="nicky-right-kod" width="1" height="1" src="./assets/nicky-right-kod.jpeg" alt="nicky Facing Right">
+    <h1>Options</h1>
+    <div id="sliders">
+    <h3>Gravity:</h3>
+      <div class="slidecontainer">
+          <input type="range" min="10" max="40" value="20" class="slider" id="gravity">
+      </div>
+      <h3>Jump Height:</h3>
+      <div class="slidecontainer">
+          <input type="range" min="-7" max="-2" value="-5" class="slider" id="jumpInitialVelocity">
+      </div>
+      <h3>Kick Vertical Speed:</h3>
+      <div class="slidecontainer">
+          <input type="range" min="-5" max="8" value="3" class="slider" id="kickYSpeed">
+      </div>
+      <h3>Kick Horizontal Speed:</h3>
+      <div class="slidecontainer">
+          <input type="range" min="1" max="10" value="2.8" class="slider" id="kickXSpeed">
+      </div>
+      <h3>Kickback Vertical Speed:</h3>
+      <div class="slidecontainer">
+          <input type="range" min="-8" max="-1" value="-3" class="slider" id="kickbackYSpeed">
+      </div>
+      <h3>Kickback Horizontal Speed:</h3>
+      <div class="slidecontainer">
+          <input type="range" min="-5" max="-0.5" value="-1.5" class="slider" id="kickbackXSpeed">
+      </div>
+      <h3>Avatar Height:</h3>
+      <div class="slidecontainer">
+          <input type="range" min="10" max="300" value="100" class="slider" id="avatarHeight">
+      </div>
+      <h3>Avatar Width:</h3>
+      <div class="slidecontainer">
+          <input type="range" min="1" max="300" value="50" class="slider" id="avatarWidth">
+      </div>
+
+
+    </div>
+
   <h1>How to Play</h1>
   <p>The goal of this game is to collide with the other player so that you are higher than them.</p>
   <p>To move forward, JUMP to go into the air and then KICK to start kicking downwards to your opponents.</p>
@@ -26,9 +65,9 @@
   <h3>Nicky:</h3>
       <p>Jump: K<br/>
       Kick: L</p>
-    
   </center>
 </body>
 <script src="./src/avatar.js"></script>
+<script src="./src/slidapter.js"></script>
 <script src="./src/canvas.js"></script>
 <script src="./src/index.js"></script>
