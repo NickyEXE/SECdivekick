@@ -130,8 +130,6 @@ class Avatar{
         }
     }
 
-
-
     static stateCheck(){
         if((Math.abs(Avatar.all[0].x - Avatar.all[1].x) <= this.avatarWidth) && (Math.abs(Avatar.all[0].y - Avatar.all[1].y) <= this.avatarHeight)){
             Avatar.all[0].y < Avatar.all[1].y ? Avatar.win(Avatar.all[0]) : Avatar.win(Avatar.all[1])
@@ -143,7 +141,7 @@ class Avatar{
             avatar.score += 1
             this.lastWinner = avatar.name
             this.justWon = true
-            this.all.find(player => player !== avatar).xSpeed = 0
+            avatar.otherAvatar().xSpeed = -avatar.xSpeed
             this.resetGame()
         }
     }
