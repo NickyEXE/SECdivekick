@@ -19,11 +19,8 @@ class Avatar{
             this.charState = "ground"
             this.ySpeed = 0
             this.xSpeed = 0
-        }        
-        // check if they're hitting a wall
+        }
         this.checkForWallHits()
-        // Need to check to see if passing wall 
-        // Need to check for victory conditions
     }
 
     imageIdWithDirection(){
@@ -150,9 +147,9 @@ class Avatar{
             avatar.score += 1
             this.lastWinner = avatar.name
             this.justWon = true
+            this.all.find(player => player !== avatar).xSpeed = 0
             this.resetGame()
         }
-        // this.resetGame()
     }
 
     static resetGame(){

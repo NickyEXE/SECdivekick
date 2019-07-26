@@ -68,7 +68,8 @@ document.addEventListener("DOMContentLoaded", () => {
         Avatar.resetDefaults()
         Avatar.all.forEach(avatar => avatar.y = Avatar.initialAvatarY)
     }
-    
+
+    // The slider values often have decimal places and stuff that
     defaultValueSet = {
         "gravity": Avatar.gravity*1000,
         "jumpInitialVelocity": Avatar.jumpInitialVelocity*-1,
