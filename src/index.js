@@ -28,6 +28,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     renderer()
 
+
+    //JavaScript only allows one button keyDown or keyUp to register at a time.
+    //To get around this, I kept the key's pressed status in this object along with the function to be executed with it.
+    //Now, whenever there's a keydown or keyup, it iterates through each of these and runs their relevant function if they're clicked.
     const pressedKeys = {
         "a": {pressed: false, 
             func: () => gracie.dive()},
@@ -39,20 +43,20 @@ document.addEventListener("DOMContentLoaded", () => {
             func: () => nicky.kick()}
         }
 
-
     function handleKeyDown(e){
         if (pressedKeys[e.key]){
         pressedKeys[e.key].pressed = true
-        // debugger
-        // pressedKeys.forEach(key => key.pressed && key.func())}
-        Object.keys(pressedKeys).forEach(key => pressedKeys[key].pressed ===true && pressedKeys[key].func())}
+        runKeys()}
     }
 
     function handleKeyUp(e){
         if (pressedKeys[e.key]){
         pressedKeys[e.key].pressed = false
+        runKeys()}
+    }
+
+    function runKeys(){
         Object.keys(pressedKeys).forEach(key => pressedKeys[key].pressed ===true && pressedKeys[key].func())
-        }
     }
 
     function handleSlider(e){
