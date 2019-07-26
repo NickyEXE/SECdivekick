@@ -44,14 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
     function handleKeyDown(e){
-        if (pressedKeys[e.key]){
-        pressedKeys[e.key].pressed = true
+        if (pressedKeys[e.key.toLowerCase()]){
+        pressedKeys[e.key.toLowerCase()].pressed = true
         runKeys()}
     }
 
     function handleKeyUp(e){
-        if (pressedKeys[e.key]){
-        pressedKeys[e.key].pressed = false
+        if (pressedKeys[e.key.toLowerCase()]){
+        pressedKeys[e.key.toLowerCase()].pressed = false
         runKeys()}
     }
 
