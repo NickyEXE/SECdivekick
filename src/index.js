@@ -60,29 +60,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function handleKeyUp(e){
         if (pressedKeys[e.key]){
         pressedKeys[e.key].pressed = false
-        // pressedKeys.forEach(key => key.pressed && key.func())}
         Object.keys(pressedKeys).forEach(key => pressedKeys[key].pressed ===true && pressedKeys[key].func())
         }
     }
-
-    // function handleKeyDown(e){
-    //     switch (e.key.toLowerCase()){
-    //         case "a":
-    //             gracie.dive()
-    //             break;
-    //         case "s":
-    //             gracie.kick()
-    //             break;
-    //         case "k":
-    //             nicky.dive()
-    //             break;
-    //         case "l":
-    //             nicky.kick()
-    //             break;
-    //         default:
-    //             break;
-    //     }
-    // }
 
     document.addEventListener("keydown", handleKeyDown)
     document.addEventListener("keyup", handleKeyUp)
