@@ -141,6 +141,7 @@ class Avatar{
             avatar.score += 1
             this.lastWinner = avatar.name
             this.justWon = true
+            avatar.otherAvatar().direction = -avatar.direction
             avatar.otherAvatar().xSpeed = -avatar.xSpeed
             this.resetGame()
         }
