@@ -12,6 +12,11 @@ class Avatar{
         this.constructor.all.push(this)
     }
 
+
+    otherAvatar(){
+        return this.constructor.all.find(avatar => avatar !== this)
+    }
+
     checkCharState(){
         // Check to see if a jumping or diving character has hit the ground, and set them to on ground state
         if (this.y >= this.constructor.initialAvatarY && (this.charState === "dive" || this.charState === "kick")){
@@ -93,7 +98,6 @@ class Avatar{
     }
 
     static resetDefaults(){
-        console.log("firing")
         this.avatarWidth = 50
         this.avatarHeight = 100
         this.jumpInitialVelocity = -5
@@ -110,31 +114,23 @@ class Avatar{
     }
 
     static executeCharacterMovement(){
-        this.directionCheck()
+        this.all.forEach(avatar => avatar.changeDirectionIfNeeded())
         this.all.forEach(avatar => avatar.executeMovement())
         this.stateCheck()
     }
 
-    static directionCheck(){
-        // This should be refactored as an instance method
-        if (!this.all[0].knockedOut()){
-            if (((this.all[0].charState ==="ground") && (this.all[0].x > this.all[1].x)) && this.all[0].direction === 1){
-                this.all[0].direction = -1
+    changeDirectionIfNeeded(){
+        if (!this.knockedOut()){
+            if ((this.charState === "ground") && ((this.x > this.otherAvatar().x) && this.direction === 1)){
+                this.direction = -1
             }
-            if (((this.all[0].charState ==="ground") && (this.all[0].x < this.all[1].x)) && this.all[0].direction === -1) {
-                this.all[0].direction = 1
-            }
-        }
-
-        if (!this.all[1].knockedOut()){
-            if (((this.all[1].charState ==="ground") && (this.all[1].x > this.all[0].x)) && this.all[1].direction === 1){
-                this.all[1].direction = -1
-            }
-            if (((this.all[1].charState ==="ground") && (this.all[1].x < this.all[0].x))&& (this.all[1].direction === -1)) {
-                this.all[1].direction = 1
+            if ((this.charState === "ground") && ((this.x < this.otherAvatar().x) && this.direction === -1)){
+                this.direction = 1
             }
         }
     }
+
+
 
     static stateCheck(){
         if((Math.abs(Avatar.all[0].x - Avatar.all[1].x) <= this.avatarWidth) && (Math.abs(Avatar.all[0].y - Avatar.all[1].y) <= this.avatarHeight)){
