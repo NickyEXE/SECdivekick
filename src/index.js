@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
         Avatar.resetDefaults()
         Avatar.all.forEach(avatar => avatar.y = Avatar.initialAvatarY)
     }
-
+    
     defaultValueSet = {
         "gravity": Avatar.gravity*1000,
         "jumpInitialVelocity": Avatar.jumpInitialVelocity*-1,
