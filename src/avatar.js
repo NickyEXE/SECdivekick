@@ -78,7 +78,7 @@ class Avatar{
         this.checkCharState()
     }
 
-    static initializeAvatars(canvas){
+    static initializeAvatarsAndGameConstants(canvas){
         this.canvas = canvas
         this.all = []
         this.lastWinner = ""
@@ -89,9 +89,24 @@ class Avatar{
         this.kickXSpeed = 2.8
         this.kickbackYSpeed = -3
         this.kickbackXSpeed = -1.5
+        this.gameSpeed = 2
         this.gravity = 0.02
         this.initialAvatarY = canvas.height - Avatar.avatarHeight
         this.justWon = false
+    }
+
+    static resetDefaults(){
+        console.log("firing")
+        this.avatarWidth = 50
+        this.avatarHeight = 100
+        this.jumpInitialVelocity = -5
+        this.kickYSpeed = 3
+        this.kickXSpeed = 2.8
+        this.kickbackYSpeed = -3
+        this.kickbackXSpeed = -1.5
+        this.gameSpeed = 2
+        this.gravity = 0.02
+        this.initialAvatarY = canvas.height - this.avatarHeight
     }
 
     static round(){

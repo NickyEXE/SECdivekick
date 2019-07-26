@@ -1,14 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
     canvas = createCanvas()
 
-    Avatar.initializeAvatars(canvas)
+    Avatar.initializeAvatarsAndGameConstants(canvas)
     const gracie = new Avatar("Gracie", "gracie", Avatar.avatarWidth, 1)
     const nicky = new Avatar("Nicky", "nicky", canvas.width - (2*Avatar.avatarWidth), -1)
-    // canvas.width = 1000
-    //     canvas.height = 800
-
     function renderer(){
-        console.log(Avatar.kickYSpeed)
         Avatar.executeCharacterMovement()
         const canvas = createCanvas()
         const ctx = canvas.getContext('2d');
@@ -24,14 +20,9 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.fillText(`Round ${Avatar.round()}`, canvas.width/2, 80)
 
         Avatar.justWon && ctx.fillText(`${Avatar.lastWinner.toUpperCase()} WINS`, canvas.width/2, canvas.height/2)
-        // ctx.fillText("Hello World", 100, 30)
     }
 
     function drawImage(ctx, avatar){
-        // if(Avatar.justWon){
-        //     debugger
-        // }
-
         !!avatar.knockedOut() ? ctx.drawImage(document.getElementById(avatar.imageIdWithDirection()), avatar.x, canvas.height-Avatar.avatarWidth, Avatar.avatarHeight, Avatar.avatarWidth) : ctx.drawImage(document.getElementById(avatar.imageIdWithDirection()), avatar.x, avatar.y, Avatar.avatarWidth, Avatar.avatarHeight)
     }
 
@@ -68,11 +59,29 @@ document.addEventListener("DOMContentLoaded", () => {
         slidapter[e.target.id](e.target.value)
     }
 
+    function resetDefaults(){
+        Object.keys(defaultValueSet).forEach(key => document.getElementById(key).value = defaultValueSet[key])
+        Avatar.resetDefaults()
+        Avatar.all.forEach(avatar => avatar.y = Avatar.initialAvatarY)
+    }
+
+    defaultValueSet = {
+        "gravity": Avatar.gravity*1000,
+        "jumpInitialVelocity": Avatar.jumpInitialVelocity*-1,
+        "kickYSpeed": Avatar.kickYSpeed,
+        "kickXSpeed": Avatar.kickXSpeed,
+        "kickbackYSpeed": Avatar.kickbackYSpeed*-1,
+        "kickbackXSpeed": Avatar.kickbackXSpeed*10,
+        "avatarWidth": Avatar.avatarWidth,
+        "avatarHeight": Avatar.avatarHeight
+    }
+
     document.addEventListener("keydown", handleKeyDown)
     document.addEventListener("keyup", handleKeyUp)
     document.getElementById("sliders").addEventListener("change", handleSlider)
+    document.getElementById("reset-defaults").addEventListener("click", resetDefaults)
     
-    setInterval(renderer, 2)
+    setInterval(renderer, Avatar.gameSpeed)
     
 
 })
