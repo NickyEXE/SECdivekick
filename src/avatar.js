@@ -50,19 +50,19 @@ class Avatar{
     }
 
     dive(){
-        if (this.charState === "ground"){
+        if (this.charState === "ground" && !this.knockedOut()){
             this.charState = "dive"
             this.ySpeed = this.constructor.jumpInitialVelocity}
     }
 
     kick(){
-        if (this.charState !== "ground" && this.charState !== "kick"){
+        if ((this.charState !== "ground" && this.charState !== "kick")&& !this.knockedOut()){
             this.charState = "kick"
             this.xSpeed = this.constructor.kickXSpeed
             this.ySpeed = this.constructor.kickYSpeed
         }
         // kickback
-        if (this.charState === "ground"){
+        if (this.charState === "ground" && !this.knockedOut()){
             this.ySpeed = this.constructor.kickbackYSpeed
             this.xSpeed = this.constructor.kickbackXSpeed
             this.charState = "dive"
@@ -106,7 +106,6 @@ class Avatar{
         this.kickbackXSpeed = -1.5
         this.gameSpeed = 2
         this.gravity = 0.02
-        this.initialAvatarY = canvas.height - this.avatarHeight
     }
 
     static round(){
